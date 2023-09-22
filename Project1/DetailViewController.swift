@@ -16,6 +16,9 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.largeTitleDisplayMode = .never
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(shareTapped))
+        
         //title = selectedImage
         if let selNum = selectedNumber, let numImg = numberImages{
             title = "Picture \(selNum+1) of \(numImg)"
@@ -36,7 +39,12 @@ class DetailViewController: UIViewController {
         super.viewWillDisappear(animated)
         navigationController?.hidesBarsOnTap = false
     }
-
+    
+    @objc func shareTapped(){
+        let vc = UIActivityViewController(activityItems: ["Check my app Project1"], applicationActivities: [])
+        vc.popoverPresentationController?.barButtonItem = navigationItem.rightBarButtonItem
+        present(vc, animated: true)
+    }
     /*
     // MARK: - Navigation
 
